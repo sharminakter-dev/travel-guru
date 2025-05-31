@@ -51,7 +51,6 @@ const Slider = () => {
         </Carousel.Item>
       ))}      
     </Carousel>
-
     );
 };
 
