@@ -2,13 +2,24 @@ import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
+import facebook from '../../resources/images/icons/fb.png';
+import google from '../../resources/images/icons/google.png';
+import { loginUser } from './authManager'; 
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/slice/authSlice';
 
 const Login = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
+  const dispatch = useDispatch();
+  const onSubmit = data => {
+    loginUser(data.email, data.password)
+    .then(res=>{
+      dispatch(setUser(res));
+    })
+  };
 
-  console.log(watch("email")); // watch input value by passing the name of it
-  console.log(watch("rememberMe")); // watch input value by passing the name of it
+  // console.log(watch("email")); // watch input value by passing the name of it
+  // console.log(watch("rememberMe")); // watch input value by passing the name of it
 
   return (
     <div style={{marginTop:'20px'}} >
@@ -41,6 +52,16 @@ const Login = () => {
         <Button variant="warning" type='submit' className="w-100 mb-3">Login</Button> 
         <small>Don't have an account? <Link to='/register' className='text-warning' >Create an account</Link> </small> 
       </Form>
+      <div className='d-flex flex-column align-items-center mt-3' > 
+                 <Button  variant="outline-secondary" type='submit' className=" rounded-pill mb-3 text-dark " style={{width:'300px'}} >
+                  <img src={facebook} style={{ width:'25px', height:'auto'}} className='me-2' />
+                  Continue With Facebook
+                  </Button> 
+                 <Button  variant="outline-secondary" type='submit' className=" rounded-pill mb-3 text-dark " style={{width:'300px'}} >
+                   <img src={google} style={{ width:'25px', height:'auto'}} className='me-2' />
+                  Continue With Google
+                  </Button> 
+              </div>
     </div>
     );
 };

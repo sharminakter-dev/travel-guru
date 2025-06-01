@@ -17,7 +17,6 @@ function App() {
           <Route path="/search/:destination" element={<Search/>} />
           <Route path="/login" element={<Auth type='login' />} />
           <Route path="/register" element={<Auth type='register' />} />
-
           <Route path='*' element={<NotFound/>} ></Route>
         </Routes>
       </BrowserRouter>
