@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import facebook from '../../resources/images/icons/fb.png';
 import google from '../../resources/images/icons/google.png';
 import { createNewUser } from './authManager'; 
@@ -14,13 +14,19 @@ const Register = () => {
   const dispatch = useDispatch();
   const user = useSelector(state=>state.auth.user);
   // console.log(user);
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from.pathname||'/';
 
   const onSubmit = data => {
     // new user registration
     createNewUser(data.fName, data.lName ,data.email, data.password)
     .then((user) =>{
-      dispatch(setUser(user))
+      dispatch(setUser(user));
+      reset();
+      navigate(from);
     })
   };
    
@@ -95,17 +101,7 @@ const Register = () => {
         
       </Form>
         {user.error && <span className='text-danger'>{user.error}</span>}
-        <div className='d-flex flex-column align-items-center mt-3' > 
-           <Button  variant="outline-secondary" type='submit' className=" rounded-pill mb-3 text-dark " style={{width:'300px'}} >
-            <img src={facebook} style={{ width:'25px', height:'auto'}} className='me-2' />
-            Continue With Facebook
-            </Button> 
-           <Button  variant="outline-secondary" type='submit' className=" rounded-pill mb-3 text-dark " style={{width:'300px'}} >
-             <img src={google} style={{ width:'25px', height:'auto'}} className='me-2' />
-            Continue With Google
-            </Button> 
-        </div>
-    </div>
+      </div>
     );
 };
 

@@ -1,7 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 import destinationReducer from '../slice/destinationSlice';
 import bookingFormReducer from '../slice/bookingFormSlice';
-import authReducer from '../slice/authSlice';
+import authReducer, {initialState as authInitialState} from '../slice/authSlice';
+
+
 const store = configureStore({
     reducer: {
         destination: destinationReducer,
@@ -9,5 +11,6 @@ const store = configureStore({
         auth: authReducer, 
     },
 });
+
 
 export default store;

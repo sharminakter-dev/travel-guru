@@ -2,7 +2,21 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import firebaseConfig from "./firebase.config";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  FacebookAuthProvider, 
+  sendEmailVerification, 
+  updateProfile, 
+  sendPasswordResetEmail, 
+  setPersistence, 
+  browserSessionPersistence, 
+  browserLocalPersistence } from "firebase/auth";
+  import dummyUser from '../../resources/images/user.png';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -15,18 +29,14 @@ export const createNewUser = (fName, lName, email, password)=>{
   .then((userCredential) => {
     // Signed up 
     const userCredentialData = userCredential.user;
-    console.log(userCredentialData);
-    userCredentialData.displayName = fName+' '+lName; 
-    userCredentialData.fName = fName; 
-    userCredentialData.lName = lName; 
     const user = {
       uid: userCredential.user.uid,
-      fName: fName,
-      lName: lName,
       userName: fName+' '+lName,
       email:email,
       success:true
     };
+    updateUserProfile( fName+' '+lName);
+    verifyEmail();
     return user;
   })
   .catch((error) => {
@@ -34,8 +44,6 @@ export const createNewUser = (fName, lName, email, password)=>{
     const errorMessage = error.message;
      const user = {
       uid: '',
-      fName: '',
-      lName: '',
       userName: '',
       email:'',
       success:false,
@@ -46,17 +54,21 @@ export const createNewUser = (fName, lName, email, password)=>{
   })
 }
 
+
 // login existing user
-export const loginUser = (email, password)=>{
-  return signInWithEmailAndPassword(auth, email, password)
+export const loginUser = (email, password, remember)=>{
+  const persistenceType = remember?browserLocalPersistence:browserSessionPersistence;
+  return setPersistence(auth, persistenceType)
+  .then(() => {
+    return signInWithEmailAndPassword(auth, email, password)
+  })
   .then((userCredential) => {
     // Signed in 
     const user = {
     uid: userCredential.user.uid,
-    fName: userCredential.user.fName,
-    lName: userCredential.user.lName,
     userName: userCredential.user.displayName,
     email:email,
+    rememberUser:remember,
     success:true
     };
     return user;
@@ -66,14 +78,76 @@ export const loginUser = (email, password)=>{
     const errorMessage = error.message;
     const user = {
       uid: '',
-      fName: '',
-      lName: '',
       userName: '',
       email:'',
       success:false,
       error: errorMessage
     };
-    console.log(errorMessage);
+    return user;
+  });
+}
+
+// google login
+export const googleLogIn = ()=>{
+  const googleProvider = new GoogleAuthProvider();
+  return signInWithPopup(auth, googleProvider)
+  .then((result) => {
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    // The signed-in user info.
+
+    const user = {
+      uid: result.user.uid,
+      userName: result.user.displayName,
+      dp: result.user.photoURL,
+      email:result.user.email,
+      success:true
+    };
+
+    return user
+  }).catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+     const user = {
+      uid: '',
+      userName: '',
+      email:'',
+      success:false,
+      error: errorMessage
+    };
+    return user;
+  });
+}
+
+// Fb logIn
+export const fbLogIn = ()=>{
+  const fbProvider = new FacebookAuthProvider();
+  return signInWithPopup(auth, fbProvider)
+  .then((result) => {
+   const user = {
+      uid: result.user.uid,
+      userName: result.user.displayName,
+      dp:result.user.photoURL,
+      email:result.user.email,
+      success:true
+    };
+    // console.log(result.user)
+    return user
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    const user = {
+      uid: '',
+      userName: '',
+      email:'',
+      success:false,
+      error: errorMessage
+    };
+    return user;
   });
 }
 
@@ -94,4 +168,40 @@ export const logoutUser = () => {
 }).catch((error) => {
   // An error happened.
 });
+}
+
+// update profile
+const updateUserProfile = (name)=>{
+  updateProfile(auth.currentUser, {
+  displayName: name, photoURL: dummyUser
+}).then(() => {
+  // Profile updated!
+  // ...
+}).catch((error) => {
+  // An error occurred
+  // ...
+  console.log(error)
+});
+}
+
+// verify email
+const verifyEmail = ()=>{
+  sendEmailVerification(auth.currentUser)
+  .then(() => {
+    // Email verification sent!
+    // ...
+  });
+}
+
+export const resetPassword = (email)=>{
+  sendPasswordResetEmail(auth, email)
+  .then(() => {
+    // Password reset email sent!
+    // ..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
 }

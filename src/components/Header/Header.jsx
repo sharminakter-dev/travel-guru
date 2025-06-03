@@ -8,25 +8,41 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../../resources/logo.png'
-import { Link, useLocation } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import { logoutUser } from '../Auth/authManager';
 import { useDispatch } from 'react-redux';
 import { signOutUser } from '../../redux/slice/authSlice';
+import { Dropdown } from 'react-bootstrap';
+import dummyUser from '../../resources/images/user.png';
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 const Header = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const from = location.state?.from.pathname||'/';
     const path = location.pathname;
     const showFilter = path === '/home' ||path === '/' || path.startsWith('/booking');
 
-    const isAuthenticated = useSelector(state=>state.auth.isAuthenticated);
+    const isAuthenticated = useSelector(state=>state.auth.user.success);
     const user = useSelector(state=>state.auth.user);
-    const dispatch = useDispatch();
+    // console.log(user)
+
+     
+
+    
     // console.log(isAuthenticated);
     const handleLogOut = () => {
         logoutUser()
-        .then(res=> dispatch(signOutUser(res)))
+        .then(res=> {
+            dispatch(signOutUser(res));
+            navigate(from);
+        })
     }
     return (    
         <Container>
@@ -59,28 +75,25 @@ const Header = () => {
                 </Nav>
                 {isAuthenticated? 
                   <>
-                     {/* <Container className="mt-5">
-                        <Row className="justify-content-center">
-                            <Col md={6}>
-                            <Card className="text-center shadow p-3">
-                                <Card.Img variant="top" src={user.image} rounded="true" className="rounded-circle mx-auto mt-3" style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
-                                <Card.Body>
-                                <Card.Title>{user.name}</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">{user.email}</Card.Subtitle>
-                                <Card.Text>
-                                    <strong>Phone:</strong> {user.phone}<br />
-                                    <strong>Address:</strong> {user.address}<br />
-                                    <strong>Bio:</strong> {user.bio}
-                                </Card.Text>
-                                <Button variant="primary">Edit Profile</Button>
-                                </Card.Body>
-                            </Card>
-                            </Col>
-                        </Row>
-                    </Container> */}
-                    <Link to='/login'> 
-                      <Button variant="danger" className="ms-lg-3 mt-2 mt-lg-0" onClick={handleLogOut}>Logout</Button>
-                    </Link>
+                    <Dropdown className='me-5'>
+                        <Dropdown.Toggle className='bg-transparent border-0' id="dropdown-basic">
+                           <img 
+                             src={user.dp||dummyUser} alt="user" 
+                             className='rounded-circle  mt-2' 
+                             style={{ width: "30px", height: "30px" }}  />
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu className='bg-light' >
+                            <Dropdown.Item as={Link} to="/user">
+                                Your Profile
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={handleLogOut} >
+                                Logout
+                                <FontAwesomeIcon icon={faRightFromBracket} className='ms-3' />
+                            </Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    
                   </>:
                   <Link to='/login'> <Button variant="warning" className="ms-lg-3 mt-2 mt-lg-0">Login</Button> </Link>
                   }

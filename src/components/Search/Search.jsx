@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 const Search = () => {
     return (
         <div>
-            <Header/>
+            {/* <Header/> */}
             <h1>Search</h1>
         </div>
     );

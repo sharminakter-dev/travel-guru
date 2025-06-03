@@ -3,15 +3,24 @@ import Header from '../Header/Header';
 import Login from './Login';
 import Register from './Register';
 import NotFound from '../NotFound/NotFound';
+import SocialLogIn from './SocialLogIn';
+
 
 const Auth = ({type}) => {
     return (
         <div>
             <Header/>
             {type === "login" ? 
-                <Login/>
+                <>
+                    <Login/>
+                    <SocialLogIn/>
+                    
+                </>
             : type === "register"?
-                <Register/>
+                <>
+                    <Register/>
+                    <SocialLogIn/>
+                </>
             :<NotFound/>}
         </div>
     );
