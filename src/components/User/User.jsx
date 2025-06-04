@@ -8,8 +8,7 @@ const User = () => {
   const user = useSelector(state=>state.auth.user);
 //   console.log(user);
   return (
-   <div className='d-flex justify-content-center align-items-center vh-100' >
-    <hr />
+       <div className='d-flex justify-content-center align-items-center vh-100 border-top mx-5 mt-3 border-secondary-subtle' >
       <Card style={{ width: '18rem' }} className='border-0' >
         <Card.Img variant="top" src={user.dp||dummyUser} />
         <Card.Body>

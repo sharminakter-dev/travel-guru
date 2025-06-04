@@ -4,16 +4,25 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { setBookingForm } from '../../redux/slice/bookingFormSlice';
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 const Destination = () => {
+    
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const destination = useSelector((state) => state.destination.destination);
+    const destination = useSelector((state) => state.destination);
     // console.log(destination);
+
+    const [name, setName] = useState(destination.name)
+
     const today = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
     const threeDaysFromNow = new Date(today);
     threeDaysFromNow.setDate(threeDaysFromNow.getDate()+3);
     const formattedThreeDaysFromNow = threeDaysFromNow.toISOString().split('T')[0]; // Format it to YYYY-MM-DD
+
+    const handleChange = (e)=>{
+        setName(e.target.value)
+    }
 
     // form submission handler
     const handleSubmit = (e)=>{
@@ -53,7 +62,9 @@ const Destination = () => {
 
                           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                 <Form.Label >Destination</Form.Label>
-                                <Form.Control type="text" name='destination' className='bg-light fw-bold ' value={destination.name} />
+                                <Form.Control type="text" name='destination' className='bg-light fw-bold ' 
+                                  value={name} 
+                                  onChange={handleChange}/>
                             </Form.Group>
                             <Row>
                                 <Col md={6}>
@@ -65,7 +76,8 @@ const Destination = () => {
                                 <Col md={6}>
                                      <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                         <Form.Label >To</Form.Label>
-                                        <Form.Control name='toDate' type="date" className='bg-light' defaultValue={formattedThreeDaysFromNow} />
+                                        <Form.Control name='toDate' type="date" className='bg-light' 
+                                          defaultValue={formattedThreeDaysFromNow} />
                                     </Form.Group>
                                 </Col>
                             </Row>

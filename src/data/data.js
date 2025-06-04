@@ -15,7 +15,7 @@ const data = [
         rating: 4.9,
         reviews: 20,
         price: 34,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Apartment in Lost Panorama",
@@ -27,7 +27,7 @@ const data = [
         rating: 4.8,
         reviews: 10,
         price: 52,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "AR Lounge & Pool (r&r + b&b)",
@@ -39,7 +39,7 @@ const data = [
         rating: 4.9,
         reviews: 25,
         price: 44,
-        img: ""
+        img: "Rectangle 28.png"
       },
       {
         title: "Seaside Haven Studio",
@@ -51,7 +51,7 @@ const data = [
         rating: 4.7,
         reviews: 16,
         price: 29,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Family Resort Suite",
@@ -63,7 +63,7 @@ const data = [
         rating: 4.6,
         reviews: 14,
         price: 60,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Hill View Deluxe Room",
@@ -75,7 +75,7 @@ const data = [
         rating: 4.4,
         reviews: 8,
         price: 40,
-        img: ""
+        img: "Rectangle 28.png"
       }
     ]
   },
@@ -95,7 +95,7 @@ const data = [
         rating: 4.7,
         reviews: 15,
         price: 28,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Rainforest Bungalow",
@@ -107,7 +107,7 @@ const data = [
         rating: 4.8,
         reviews: 12,
         price: 38,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Monsoon Eco Lodge",
@@ -119,7 +119,7 @@ const data = [
         rating: 4.5,
         reviews: 10,
         price: 24,
-        img: ""
+        img: "Rectangle 28.png"
       },
       {
         title: "Lemon Grove Guesthouse",
@@ -131,7 +131,7 @@ const data = [
         rating: 4.6,
         reviews: 9,
         price: 36,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Rustic Treehouse",
@@ -143,7 +143,7 @@ const data = [
         rating: 4.9,
         reviews: 6,
         price: 30,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Tea Estate Family Villa",
@@ -155,7 +155,7 @@ const data = [
         rating: 4.7,
         reviews: 11,
         price: 58,
-        img: ""
+        img: "Rectangle 28.png"
       }
     ]
   },
@@ -175,7 +175,7 @@ const data = [
         rating: 4.6,
         reviews: 18,
         price: 30,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Tiger Point Cottage",
@@ -187,7 +187,7 @@ const data = [
         rating: 4.5,
         reviews: 9,
         price: 25,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Jungle Camp Hut",
@@ -199,7 +199,7 @@ const data = [
         rating: 4.4,
         reviews: 11,
         price: 20,
-        img: ""
+        img: "Rectangle 28.png"
       },
       {
         title: "Sundarbans Watchtower Lodge",
@@ -211,7 +211,7 @@ const data = [
         rating: 4.8,
         reviews: 14,
         price: 45,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Eco River Cabin",
@@ -222,8 +222,7 @@ const data = [
         features: ["Boat stay", "Freshwater fishing", "Solar energy"],
         rating: 4.6,
         reviews: 13,
-        price: 35,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Tiger Bay Tent House",
@@ -235,7 +234,7 @@ const data = [
         rating: 4.3,
         reviews: 7,
         price: 18,
-        img: ""
+        img: "Rectangle 28.png"
       }
     ]
   },
@@ -255,7 +254,7 @@ const data = [
         rating: 4.9,
         reviews: 12,
         price: 40,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Sajek Sky Retreat",
@@ -267,7 +266,7 @@ const data = [
         rating: 4.7,
         reviews: 9,
         price: 55,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Hillside Wooden Cabin",
@@ -279,7 +278,7 @@ const data = [
         rating: 4.8,
         reviews: 14,
         price: 38,
-        img: ""
+        img: "Rectangle 28.png"
       },
       {
         title: "Valley Edge Tent Stay",
@@ -291,7 +290,7 @@ const data = [
         rating: 4.6,
         reviews: 7,
         price: 25,
-        img: ""
+        img: "Rectangle 26.png"
       },
       {
         title: "Sajek Sunset Lodge",
@@ -303,7 +302,7 @@ const data = [
         rating: 4.5,
         reviews: 10,
         price: 48,
-        img: ""
+        img: "Rectangle 27.png"
       },
       {
         title: "Tribal Touch Homestay",
@@ -315,7 +314,7 @@ const data = [
         rating: 4.7,
         reviews: 11,
         price: 35,
-        img: ""
+        img: "Rectangle 28.png"
       }
     ]
   }

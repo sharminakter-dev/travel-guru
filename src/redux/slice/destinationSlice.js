@@ -1,15 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {}
+
 const destinationSlice = createSlice({
     name: 'destination',
-    initialState: {
-        destination: {},
-        loading: false,
-        error: null,
-    },
+    initialState,
     reducers:{
         setDestination: (state, action)=>{
-            state.destination = action.payload; 
+            return action.payload; 
          }
     }
 });

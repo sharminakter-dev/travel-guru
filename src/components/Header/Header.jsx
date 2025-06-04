@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -17,6 +17,7 @@ import { Dropdown } from 'react-bootstrap';
 import dummyUser from '../../resources/images/user.png';
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import data from '../../data/data';
 
 
 
@@ -25,18 +26,37 @@ const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const searchRef = useRef();
+
     const from = location.state?.from.pathname||'/';
     const path = location.pathname;
     const showFilter = path === '/home' ||path === '/' || path.startsWith('/booking');
 
+
     const isAuthenticated = useSelector(state=>state.auth.user.success);
     const user = useSelector(state=>state.auth.user);
     // console.log(user)
-
-     
-
-    
     // console.log(isAuthenticated);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const input = searchRef.current.value.trim().toLowerCase();
+        if (input !== '') {
+            const match = data.find(item =>
+                item.name.toLowerCase().includes(input)
+            );
+            if (match) {
+                const slug = match.name.toLowerCase().replace(/[^a-z0-9]/g, '');
+                navigate(`/search/${slug}`);
+            } else {
+                alert('Destination not found!');
+            }
+        } else {
+            searchRef.current.focus();
+            console.log('Search not working');
+        }
+    };
+
     const handleLogOut = () => {
         logoutUser()
         .then(res=> {
@@ -52,20 +72,19 @@ const Header = () => {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
-                <Form className="d-flex mx-auto my-2 my-lg-0 " style={{ maxWidth: 400, flex: 1 }}>
+                <Form className="d-flex mx-auto my-2 my-lg-0 " style={{ maxWidth: 400, flex: 1 }}  onSubmit={handleSubmit} >
                     <Form.Control
                         type="search"
                         placeholder="Search Your Destination"
                         className="me-2 text-dark"
                         aria-label="Search"
+                        ref={searchRef}
                         />
                 </Form>
                 <Nav
                     className="me-auto my-2 my-lg-0 "
                     style={{ maxHeight: '200px' }}
                     navbarScroll
-
-                    
                 >
                     <Nav.Link href="#action1"  className={`${showFilter?'text-white':null}`} >News</Nav.Link>
                     <Nav.Link href="#action2"  className={`${showFilter?'text-white':null}`} >Destination</Nav.Link>
