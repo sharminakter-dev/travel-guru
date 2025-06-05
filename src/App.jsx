@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="/travel-guru/ >
         <AuthState/>
         <Routes>
           <Route path='/home' element={<Home/>} />
