@@ -26,5 +26,5 @@
 - Vite (for development)
 
 ##  Live Demo
-[Visit Live Site](https://your-live-url.com)
+[Visit Live Site](https://sharminakter-dev.github.io/travel-guru/)
 
