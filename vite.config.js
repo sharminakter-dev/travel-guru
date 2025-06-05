@@ -7,5 +7,5 @@ export default defineConfig({
   optimizeDeps: {
     include: ['classnames'],
   },
-  base: '/travel-guru/', 
+  base: '/travel-guru/',
 })
